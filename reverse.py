@@ -2,7 +2,9 @@ import socket
 import sys
 
 s = socket.socket()
-host = "192.168.1.12"
+# Your Host IP
+host = "127.0.0.1"
+# Any port; using 443 because open in every network
 port = 443
 buffSize = 1024*2
 s.bind((host, port))
@@ -13,7 +15,6 @@ print ("Connected to ", addr)
 print (c.recv(buffSize).decode("utf-8"))
 print ("Shot Commands!")
 run = True
-
 while run:
     try:
         cmd = str(raw_input(">"))
