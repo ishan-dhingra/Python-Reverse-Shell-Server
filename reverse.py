@@ -23,9 +23,14 @@ while run:
         else:
             continue
         response = c.recv(buffSize).strip().decode("utf-8")
-        while '$endRes$' not in response:
+        keepReading = True
+        while keepReading:
+            keepReading = '$endRes$' not in response
+            if not keepReading:
+                response = response.replace("$endRes$","")
             print (response)
-            response = c.recv(buffSize).strip().decode("utf-8")
+            if keepReading:
+                response = c.recv(buffSize).strip().decode("utf-8")
         if response == "bye":
             run = False
             c.close()
