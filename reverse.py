@@ -3,10 +3,10 @@ import sys
 
 s = socket.socket()
 # Your Host IP
-host = "127.0.0.1"
+host = "192.168.1.15"
 # Any port; using 443 because open in every network
 port = 443
-buffSize = 1024*2
+buffSize = 1024
 s.bind((host, port))
 print ('Setup at ', host)
 s.listen(5)
@@ -23,7 +23,9 @@ while run:
         else:
             continue
         response = c.recv(buffSize).strip().decode("utf-8")
-        print (response)
+        while '$endRes$' not in response:
+            print (response)
+            response = c.recv(buffSize).strip().decode("utf-8")
         if response == "bye":
             run = False
             c.close()
